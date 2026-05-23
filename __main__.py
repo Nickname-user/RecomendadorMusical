@@ -19,7 +19,9 @@ import joblib
 from src.preprocess import preprocess_dataset
 from src.clustering import run_clustering
 from src.classifier import run_classification
-from src.recommender import recommend_song
+from src.recommender import recommend_song, recommend_from_existing_song
+from src.training import train_pipeline
+from src.gui.gui_layout import RecommenderGUI
 
 
 # =========================
@@ -148,9 +150,10 @@ if __name__ == "__main__":
     ya han sido entrenados previamente.
     """
 
-    TRAIN_MODEL = True  # Cambiar a False para solo recomendar
+    TRAIN_MODEL = False  # Cambiar a False para solo recomendar
 
     if TRAIN_MODEL:
         train_pipeline()
-
-    run_recommender()
+    else:
+        app = RecommenderGUI()
+        app.mainloop()
