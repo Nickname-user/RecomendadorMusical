@@ -69,7 +69,7 @@ def train_pipeline():
     Esta función debe ejecutarse UNA SOLA VEZ.
     """
     print("Iniciando preprocesado de datos...")
-    df_metadata, X_scaled = preprocess_dataset(
+    df_metadata, X, X_scaled = preprocess_dataset(
         csv_path=DATASET_PATH,
         scaler_path=SCALER_PATH
     )
@@ -77,6 +77,7 @@ def train_pipeline():
     print("Entrenando modelo de clustering (GMM)...")
     df_clustered, gmm = run_clustering(
         df_metadata=df_metadata,
+        X=X,
         X_scaled=X_scaled,
         n_components=N_COMPONENTS,
         model_path=GMM_MODEL_PATH,
