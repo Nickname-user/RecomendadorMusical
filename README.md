@@ -1,10 +1,3 @@
-# RecomendadorMusical
-Perfecto. A continuación tienes un **README.md completo y actualizado**, listo para **copiar y pegar en GitHub**, que refleja fielmente **el estado actual del proyecto**, su arquitectura, cómo se usa y qué aporta.
-
-He usado un tono **claro, profesional y académico**, adecuado tanto para un repositorio público como para una entrega de asignatura.
-
-***
-
 # 🎵 Recomendador Musical basado en Machine Learning
 
 Este proyecto implementa un **sistema de recomendación musical** a partir de datos acústicos de canciones de Spotify.  
@@ -156,14 +149,6 @@ Este comportamiento es esperado y forma parte del enfoque del sistema.
 
 ***
 
-## ⚠️ Notas importantes
-
-* Las carpetas `__pycache__/` son generadas automáticamente por Python y **no deben incluirse en la entrega**.
-* Los archivos `.pkl` contienen modelos entrenados y **no deben modificarse manualmente**.
-* El sistema está pensado para **uso académico** y demostración de técnicas de ML.
-
-***
-
 ## 🚀 Posibles mejoras futuras
 
 * Mostrar varias sugerencias de canciones similares al introducir un nombre
@@ -174,22 +159,6 @@ Este comportamiento es esperado y forma parte del enfoque del sistema.
 
 ***
 
-## 👥 Autores
-
-Proyecto desarrollado como parte de una **asignatura universitaria**, con fines académicos.
-
-***
-
 ## 📄 Licencia
 
 Uso académico y educativo.
-
-***
-
-Si quieres, puedo:
-
-* adaptar este README al **formato exacto que os pidan**
-* crear una **versión más corta**
-* o redactar un README **orientado a evaluación del profesor**
-
-¿Lo vais a subir como **repositorio público** o solo como **entrega privada**?
