@@ -189,7 +189,7 @@ def preprocess_dataset(
     df_metadata, X = split_metadata_and_features(df)
     X_scaled = scale_features(X, scaler_path)
 
-    return df_metadata, X_scaled
+    return df_metadata, X, X_scaled
 
 
 # =========================
