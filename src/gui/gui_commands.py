@@ -43,7 +43,13 @@ FEATURE_ORDER = [
 ]
 
 df_clustered = joblib.load(DATASET_PATH)
-AVAILABLE_SONGS = df_clustered["track_name"].unique().tolist()
+AVAILABLE_SONGS = (
+    df_clustered["track_name"]
+    .dropna()
+    .astype(str)
+    .unique()
+    .tolist()
+)
 
 
 # =========================
