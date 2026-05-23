@@ -139,58 +139,30 @@ def build_clustered_dataset(
 # =========================
 # Función de alto nivel
 # =========================
-
 def run_clustering(
     df_metadata: pd.DataFrame,
+    X: pd.DataFrame,              # 👈 NUEVO
     X_scaled,
     n_components: int,
     model_path: str,
     dataset_path: str
-) -> Tuple[pd.DataFrame, GaussianMixture]:
-    """
-    Ejecuta el pipeline completo de clustering:
-    - Entrena el modelo GMM.
-    - Asigna clusters a las canciones.
-    - Guarda el modelo entrenado.
-    - Construye y guarda el dataset con clusters.
-
-    Esta función está pensada para ser llamada desde main.py.
-
-    Parameters
-    ----------
-    df_metadata : pd.DataFrame
-        DataFrame con la información descriptiva de las canciones.
-    X_scaled : numpy.ndarray
-        Matriz de features numéricas escaladas.
-    n_components : int
-        Número de clusters del modelo GMM.
-    model_path : str
-        Ruta donde se guardará el modelo GMM entrenado (.pkl).
-    dataset_path : str
-        Ruta donde se guardará el dataset con clusters.
-
-    Returns
-    -------
-    Tuple[pd.DataFrame, GaussianMixture]
-        - DataFrame con metadata + cluster asignado.
-        - Modelo GMM entrenado.
-    """
-    # Entrenamiento del modelo
+):
     gmm = train_gmm(X_scaled, n_components)
-
-    # Asignación de clusters
     clusters = assign_clusters(gmm, X_scaled)
 
-    # Construcción del dataset enriquecido
-    df_clustered = build_clustered_dataset(df_metadata, clusters)
+    df_clustered = df_metadata.copy()
 
-    # Guardado de artefactos
+    # Añadir features numéricas
+    for col in X.columns:
+        df_clustered[col] = X[col].values
+
+    # Añadir cluster
+    df_clustered["cluster"] = clusters
+
     joblib.dump(gmm, model_path)
     joblib.dump(df_clustered, dataset_path)
 
     return df_clustered, gmm
-
-
 # =========================
 # Ejecución directa (opcional)
 # =========================
