@@ -16,7 +16,7 @@ import random
 import difflib
 import joblib
 import pandas as pd
-
+import re
 from src.recommender import recommend_from_existing_song
 
 
@@ -55,6 +55,50 @@ AVAILABLE_SONGS = (
 # =========================
 # Funciones auxiliares
 # =========================
+
+
+def normalize_title(title: str) -> list[str]:
+    """
+    Convierte un título en una lista de tokens normalizados.
+    """
+    title = title.lower()
+    title = re.sub(r"[^a-z0-9\s]", "", title)
+    tokens = title.split()
+    return tokens
+
+
+def jaccard_similarity(tokens_a, tokens_b) -> float:
+    '''
+    Devuelve la cercanía de Jaccard
+    '''
+    set_a = set(tokens_a)
+    set_b = set(tokens_b)
+
+    if not set_a or not set_b:
+        return 0.0
+
+    return len(set_a & set_b) / len(set_a | set_b)
+
+
+def find_best_song_match(user_input: str, available_songs: list[str]) -> str:
+    user_tokens = normalize_title(user_input)
+
+    best_score = 0.0
+    best_match = None
+
+    for song in available_songs:
+        song_tokens = normalize_title(song)
+        score = jaccard_similarity(user_tokens, song_tokens)
+
+        if score > best_score:
+            best_score = score
+            best_match = song
+
+    if best_score < 0.5:
+        raise ValueError("No se encontró ninguna canción suficientemente similar.")
+
+    return best_match
+
 
 def find_closest_song(song_name: str) -> str:
     """
@@ -115,7 +159,10 @@ def recommend_song_command(
         try:
             # Buscar coincidencia exacta o aproximada
             if song_name not in AVAILABLE_SONGS:
-                corrected_song = find_closest_song(song_name)
+                try:
+                    corrected_song = find_best_song_match(song_name,AVAILABLE_SONGS)
+                except:
+                    corrected_song = find_closest_song(song_name)
             else:
                 corrected_song = song_name
 
