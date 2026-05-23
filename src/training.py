@@ -1,4 +1,25 @@
-def train_pipeline():
+from src.preprocess import preprocess_dataset
+from src.clustering import run_clustering
+from src.classifier import run_classification
+
+N_COMPONENTS = 10
+FEATURE_ORDER = [
+    "duration_ms",
+    "danceability",
+    "energy",
+    "key",
+    "loudness",
+    "mode",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo",
+    "time_signature"
+]
+
+def train_pipeline(DATASET_PATH, SCALER_PATH, GMM_MODEL_PATH, MLP_MODEL_PATH,CLUSTERED_DATASET_PATH):
     """
     Ejecuta todo el pipeline de entrenamiento del sistema:
     - Preprocesado
