@@ -51,10 +51,12 @@ def train_mlp(
         Modelo MLP entrenado.
     """
     mlp = MLPClassifier(
-        hidden_layer_sizes=(64, 32),
+        hidden_layer_sizes=(128, 64),
         activation="relu",
         solver="adam",
-        max_iter=500,
+        alpha=5e-5,
+        max_iter=800,
+        early_stopping=True,
         random_state=random_state
     )
 
