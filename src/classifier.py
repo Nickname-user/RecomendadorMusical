@@ -56,7 +56,7 @@ def train_mlp(
         solver="adam",
         alpha=5e-5,
         max_iter=800,
-        early_stopping=True,
+        early_stopping=False,
         random_state=random_state
     )
 
