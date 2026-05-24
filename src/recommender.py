@@ -218,6 +218,47 @@ def recommend_song(
     return recommendations
 
 
+def recommend_from_existing_song(
+    track_name: str,
+    df_clustered: pd.DataFrame,
+    feature_order: list,
+    top_n: int = 3
+) -> pd.DataFrame:
+    """
+    Recomienda canciones similares a una canción existente del dataset.
+
+    Parameters
+    ----------
+    track_name : str
+        Nombre de la canción de referencia.
+    df_clustered : pd.DataFrame
+        Dataset con metadata, features y clusters.
+    feature_order : list
+        Orden de las features numéricas.
+    top_n : int
+        Número de recomendaciones.
+
+    Returns
+    -------
+    pd.DataFrame
+        Canciones recomendadas.
+    """
+    song_row = df_clustered[df_clustered["track_name"] == track_name]
+
+    if song_row.empty:
+        raise ValueError(f"La canción '{track_name}' no existe en el dataset.")
+
+    song_features = song_row.iloc[0][feature_order].to_dict()
+    cluster = song_row.iloc[0]["cluster"]
+
+    return recommend_from_cluster(
+        song_features=song_features,
+        cluster=cluster,
+        df_clustered=df_clustered,
+        feature_order=feature_order,
+        top_n=top_n
+    )
+
 # =========================
 # Ejecución directa (opcional)
 # =========================
