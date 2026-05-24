@@ -37,7 +37,7 @@ MLP_MODEL_PATH = "models/mlp.pkl"
 CLUSTERED_DATASET_PATH = "data/songs_with_clusters.pkl"
 
 # Número de clusters del GMM
-N_COMPONENTS = 10
+N_COMPONENTS = 80
 
 # Orden de las features numéricas (DEBE ser consistente en todo el proyecto)
 FEATURE_ORDER = [
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     TRAIN_MODEL = False  # Cambiar a False para solo recomendar
 
     if TRAIN_MODEL:
-        train_pipeline()
+        train_pipeline(DATASET_PATH, SCALER_PATH, GMM_MODEL_PATH, MLP_MODEL_PATH,CLUSTERED_DATASET_PATH,N_COMPONENTS)
     else:
         app = RecommenderGUI()
         app.mainloop()
