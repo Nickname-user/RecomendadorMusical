@@ -51,6 +51,7 @@ def train_gmm(
     gmm = GaussianMixture(
         n_components=n_components,
         covariance_type="full",
+        max_iter=300,
         random_state=random_state
     )
     gmm.fit(X_scaled)
